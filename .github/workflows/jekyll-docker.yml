@@ -1,0 +1,26 @@
+name: Docker Nginx Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  nginx:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Nginx Container
+        run: |
+          docker run -d --name nginx-container -p 8080:80 nginx
+
+      - name: Verify Nginx
+        run: |
+          sleep 5
+          curl http://localhost:8080
+
+      - name: Show Containers
+        run: docker ps
