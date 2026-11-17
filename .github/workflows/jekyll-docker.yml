@@ -7,7 +7,7 @@ on:
 
 jobs:
   nginx:
-    runs-on: ubuntu-latest
+    runs-on: nginx-latest
 
     steps:
       - name: Checkout code
@@ -15,12 +15,15 @@ jobs:
 
       - name: Run Nginx Container
         run: |
-          docker run -d --name nginx-container -p 8080:80 nginx
+          docker run -d --name nginx-container1 -p 8080:8083 nginx
 
       - name: Verify Nginx
         run: |
           sleep 5
-          curl http://localhost:8080
+          curl http://localhost:8083
 
       - name: Show Containers
-        run: docker ps
+        run: |
+           docker ps
+           docker ps -a
+           docker create namespace pkc
